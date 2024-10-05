@@ -1,16 +1,11 @@
-import { JSONLoader } from "langchain/document_loaders/fs/json";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
-import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import * as dotenv from "dotenv";
 import weaviate, { WeaviateClient, ApiKey } from 'weaviate-ts-client';
 import { WeaviateStore } from "@langchain/weaviate";
-import * as fs from 'fs';
-import * as path from 'path';
+
 
 dotenv.config();
 
@@ -19,49 +14,22 @@ const llm = new ChatOpenAI({
     temperature: 0
   });
 
-const weaviateClient = (weaviate as any).client({
-    scheme: "https",
+const weaviateClient: WeaviateClient = weaviate.client({
+    scheme: 'https',
     host: process.env.WEAVIATE_API_URL ?? "localhost",
     apiKey: new ApiKey(process.env.WEAVIATE_API_KEY ?? "default"),
-});
+  });
 
-console.log(weaviateClient);
-
-// const loader = new JSONLoader("data/session.json");
-const files = fs.readdirSync("data");
-const jsonFiles = files.filter((file) => path.extname(file).toLowerCase() === '.json');
-
-let allDocs = [];
-
-for (const file of jsonFiles) {
-    const loader = new JSONLoader(path.join("data", file));
-    const docs = await loader.load();
-    allDocs = allDocs.concat(docs);
-}
-
-console.log(allDocs.length);
-
-// Split the documents
-const textSplitter = new RecursiveCharacterTextSplitter({
-  chunkSize: 1000,
-  chunkOverlap: 200,
-});
-const splitDocs = await textSplitter.splitDocuments(allDocs);
-
-console.log(splitDocs.length);
+const embeddings = new OpenAIEmbeddings();
 
 // Create vector store from split documents
-const vectorStore = await WeaviateStore.fromDocuments(
-    splitDocs,
-    new OpenAIEmbeddings(),
+const vectorStore = new WeaviateStore(
+    embeddings,
     {
         client: weaviateClient,
-        indexName: "parliament-data",
-        textKey: "text",
+        indexName: "Sessions"
     }
   );
-
-console.log(vectorStore);
 
 const retriever = vectorStore.asRetriever({
     searchType: "similarity",
