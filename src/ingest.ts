@@ -1,4 +1,4 @@
-import { JSONLoader } from "langchain/document_loaders/fs/json";
+import { TextLoader } from "langchain/document_loaders/fs/text";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import * as dotenv from "dotenv";
@@ -15,13 +15,13 @@ const weaviateClient: WeaviateClient = weaviate.client({
     apiKey: new ApiKey(process.env.WEAVIATE_API_KEY ?? "default"),
   });
 
-const files = fs.readdirSync("data_aug");
-const jsonFiles = files.filter((file) => path.extname(file).toLowerCase() === '.json');
+const files = fs.readdirSync("output");
+const textFiles = files.filter((file) => path.extname(file).toLowerCase() === '.txt');
 
 let allDocs = [];
 
-for (const file of jsonFiles) {
-    const loader = new JSONLoader(path.join("data_aug", file));
+for (const file of textFiles) {
+    const loader = new TextLoader(path.join("output", file));
     const docs = await loader.load();
     allDocs = allDocs.concat(docs);
 }
