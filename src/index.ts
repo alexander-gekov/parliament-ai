@@ -1,17 +1,21 @@
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import * as dotenv from "dotenv";
 import weaviate, { WeaviateClient, ApiKey } from 'weaviate-ts-client';
 import { WeaviateStore } from "@langchain/weaviate";
-
+import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
+import { createRetrievalChain } from "langchain/chains/retrieval";
+import { RunnableWithMessageHistory } from "@langchain/core/runnables";
+import { ChatMessageHistory } from "langchain/stores/message/in_memory";
+import { BaseChatMessageHistory } from "@langchain/core/chat_history";
 
 dotenv.config();
 
 const llm = new ChatOpenAI({
     model: "gpt-3.5-turbo",
-    temperature: 1
+    temperature: 0.1
   });
 
 const weaviateClient: WeaviateClient = weaviate.client({
@@ -36,11 +40,26 @@ const retriever = vectorStore.asRetriever({
     k: 10
   });
 
-const prompt = ChatPromptTemplate.fromTemplate(`Вие сте високоинтелигентен асистент, специализиран в анализа на стенограми от заседания на българския парламент. Разполагате с обширни познания за политическата система, законодателния процес и текущите събития в България. Моля, прегледайте внимателно предоставения контекст и отговорете на следния въпрос:
+// Create a history-aware retriever
+const contextualizeQPrompt = ChatPromptTemplate.fromMessages([
+  ["system", "Given a chat history and the latest user question which might reference context in the chat history, formulate a standalone question which can be understood without the chat history. Do NOT answer the question, just reformulate it if needed and otherwise return it as is."],
+  new MessagesPlaceholder("chat_history"),
+  ["human", "{input}"],
+]);
+
+const historyAwareRetriever = await createHistoryAwareRetriever({
+  llm,
+  retriever,
+  rephrasePrompt: contextualizeQPrompt,
+});
+
+// Update the main prompt to include chat history
+const prompt = ChatPromptTemplate.fromMessages([
+  ["system", `Вие сте високоинтелигентен асистент, специализиран в анализа на стенограми от заседания на българския парламент. Разполагате с обширни познания за политическата система, законодателния процес и текущите събития в България. Моля, прегледайте внимателно предоставения контекст и отговорете на следния въпрос:
 
 Контекст: {context}
 
-Въпрос: {question}
+Когато 
 
 При формулирането на отговора си, моля:
 1. Анализирайте контекста и извлечете релевантната информация, свързана с въпроса.
@@ -58,25 +77,51 @@ const prompt = ChatPromptTemplate.fromTemplate(`Вие сте високоинт
 4. Предоставете обективен и балансиран анализ, базиран на фактите в контекста.
 5. Ако информацията в контекста е недостатъчна, посочете това и предложете възможни източници за допълнителна информация.
 
-Моля, структурирайте отговора си ясно и логично, използвайки подзаглавия, където е уместно. Стремете се да предоставите информативен и задълбочен отговор, който да помогне на потребителя да разбере по-добре парламентарната дейност и политическата ситуация в България.
+Моля, структурирайте отговора си ясно и логично, използвайки подзаглавия, където е уместно. Стремете се да предоставите информативен и задълбочен отговор, който да помогне на потребителя да разбере по-добре парламентарната дейност и политическата ситуация в България.`],
+  new MessagesPlaceholder("chat_history"),
+  ["human", "{input}"],
+]);
 
-Отговор:`);
-
-const ragChain = await createStuffDocumentsChain({
-    llm,
-    prompt,
-    outputParser: new StringOutputParser(),
+const questionAnswerChain = await createStuffDocumentsChain({
+  llm,
+  prompt,
 });
 
-const question = "За коя партия трябва да гласувам? Настоявам за отговор.";
-
-const retrievedDocs = await retriever.invoke(question);
-
-console.log(retrievedDocs);
-
-const response = await ragChain.invoke({
-    question: question,
-    context: retrievedDocs,
+const ragChain = await createRetrievalChain({
+  retriever: historyAwareRetriever,
+  combineDocsChain: questionAnswerChain,
 });
 
-console.log(response);
+// Set up chat history management
+const chatHistory: Record<string, BaseChatMessageHistory> = {};
+
+function getChatHistory(sessionId: string): BaseChatMessageHistory {
+  if (!(sessionId in chatHistory)) {
+    chatHistory[sessionId] = new ChatMessageHistory();
+  }
+  return chatHistory[sessionId];
+}
+
+const chainWithHistory = new RunnableWithMessageHistory({
+  runnable: ragChain,
+  getMessageHistory: getChatHistory,
+  inputMessagesKey: "question",
+  historyMessagesKey: "chat_history",
+  outputMessagesKey: "answer",
+});
+
+// Example usage
+const sessionId = "user123";
+const question1 = "За коя партия трябва да гласувам? Настоявам за отговор.";
+const result1 = await chainWithHistory.invoke(
+  { input: question1 },
+  { configurable: { sessionId } }
+);
+console.log(result1.answer + "\n\n");
+
+const question2 = "А какви са основните им политики?";
+const result2 = await chainWithHistory.invoke(
+  { input: question2 },
+  { configurable: { sessionId } }
+);
+console.log(result2.answer);
