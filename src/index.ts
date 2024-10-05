@@ -6,9 +6,10 @@ import weaviate, { WeaviateClient, ApiKey } from 'weaviate-ts-client';
 import { WeaviateStore } from "@langchain/weaviate";
 import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
 import { createRetrievalChain } from "langchain/chains/retrieval";
-import { RunnableWithMessageHistory } from "@langchain/core/runnables";
-import { ChatMessageHistory } from "langchain/stores/message/in_memory";
-import { BaseChatMessageHistory } from "@langchain/core/chat_history";
+import { ToolNode } from "@langchain/langgraph/prebuilt";
+import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
+import { HumanMessage } from "@langchain/core/messages";
+import { StateGraph, MessagesAnnotation } from "@langchain/langgraph";
 
 dotenv.config();
 
@@ -90,58 +91,56 @@ const ragChain = await createRetrievalChain({
   combineDocsChain: questionAnswerChain,
 });
 
-// Set up chat history management
-const chatHistory: Record<string, BaseChatMessageHistory> = {};
-
-function getChatHistory(sessionId: string): BaseChatMessageHistory {
-  if (!(sessionId in chatHistory)) {
-    chatHistory[sessionId] = new ChatMessageHistory();
-  }
-  return chatHistory[sessionId];
-}
-
-const chainWithHistory = new RunnableWithMessageHistory({
-  runnable: ragChain,
-  getMessageHistory: getChatHistory,
-  inputMessagesKey: "input",
-  historyMessagesKey: "chat_history",
-  outputMessagesKey: "answer",
+const tavilySearch = new TavilySearchResults({
+  apiKey: process.env.TAVILY_API_KEY,
+  maxResults: 3
 });
 
-// Example usage
-const sessionId = "user123";
+// Step 4: Set up ToolNode for LangGraph agent
+const tools = [new TavilySearchResults({ apiKey: process.env.TAVILY_API_KEY, maxResults: 3 })];
+const toolNode = new ToolNode(tools);
+
+// Step 5: Define a function to decide whether to continue (tool usage)
+function shouldContinue({ messages }: typeof MessagesAnnotation.State) {
+  const lastMessage = messages[messages.length - 1];
+
+  // If the LLM makes a tool call, route to the "tools" node
+  if (lastMessage.additional_kwargs.tool_calls) {
+    return "tools";
+  }
+
+  // Otherwise, stop at the agent's response (end state)
+  return "__end__";
+}
+
+// Step 6: Define function to call the model
+async function callModel(state: typeof MessagesAnnotation.State) {
+  const response = await llm.invoke(state.messages);
+  return { messages: [response] };
+}
+
+// Step 7: Create a LangGraph StateGraph for agent flow
+const workflow = new StateGraph(MessagesAnnotation)
+  .addNode("agent", callModel)
+  .addEdge("__start__", "agent")
+  .addNode("tools", toolNode)
+  .addEdge("tools", "agent")
+  .addConditionalEdges("agent", shouldContinue);
+
+const app = workflow.compile();
+
 const question1 = "Какви решения са взети/дискутирани относно приемането на еврото?";
 
-try {
-  const result1 = await chainWithHistory.invoke(
-    { input: question1 },
-    { configurable: { sessionId } }
-  );
+const finalState = await app.invoke({
+  messages: [new HumanMessage(question1)],
+});
+console.log(finalState.messages[finalState.messages.length - 1].content);
 
-  console.log("Retrieved documents for question 1:", result1.context);
-  
-  if (result1.answer) {
-    console.log("Answer 1:", result1.answer);
-  } else {
-    console.log("No answer received for question 1");
-  }
-} catch (error) {
-  console.error("Error processing question 1:", error);
-}
+const nextState = await app.invoke({
+  messages: [...finalState.messages, new HumanMessage("Кои депутати са били най-против приемането на еврото?")],
+});
 
-const question2 = "Кои депутати са били най-против приемането на еврото?";
-
-try {
-  const result2 = await chainWithHistory.invoke(
-    { input: question2 },
-    { configurable: { sessionId } }
-  );
-  
-  if (result2.answer) {
-    console.log("Answer 2:", result2.answer);
-  } else {
-    console.log("No answer received for question 2");
-  }
-} catch (error) {
-  console.error("Error processing question 2:", error);
-}
+const nextState2 = await app.invoke({
+  messages: [...nextState.messages, new HumanMessage("С какво е свързан първият ми въпрос?")],
+});
+console.log(nextState2.messages[nextState2.messages.length - 1].content);
