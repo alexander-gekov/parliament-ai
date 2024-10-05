@@ -1,10 +1,11 @@
 {
+  "type": "module",
   "name": "parliament-ai",
   "version": "1.0.0",
   "description": "**ParliamentAI** is a collaborative project created during the AI Hackathon by Alexander Gekov and Viktor Naydenov. Our project focuses on keeping the users informed about Bulgarian Parliament hearings, meetings and discussions. We aim to develop an innovative AI solution that addresses the subjective information propaganda.",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "rag": "npx tsc && npx tsx dist/index.js"
   },
   "keywords": [],
   "author": "",
