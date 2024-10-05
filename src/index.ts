@@ -1,20 +1,28 @@
-import { END } from "@langchain/langgraph";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
-import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import * as dotenv from "dotenv";
 import weaviate, { WeaviateClient, ApiKey } from 'weaviate-ts-client';
 import { WeaviateStore } from "@langchain/weaviate";
-import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
-import { createRetrievalChain } from "langchain/chains/retrieval";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
 import { BaseMessage, HumanMessage } from "@langchain/core/messages";
+import { pull } from "langchain/hub";
 import { StateGraph, MessagesAnnotation, Annotation } from "@langchain/langgraph";
 import { createRetrieverTool } from "langchain/tools/retriever";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { DocumentInterface } from "@langchain/core/documents";
+import { formatDocumentsAsString } from "langchain/util/document";
+import { StringOutputParser } from "@langchain/core/output_parsers";
+import { z } from "zod";
+import { DynamicTool } from "@langchain/core/tools";
 
 dotenv.config();
 
+const llm = new ChatOpenAI({
+    model: "gpt-4o-mini",
+    temperature: 0,
+    streaming: true
+  })
+  
 const embeddings = new OpenAIEmbeddings();
 
 //#region Weaviate Setup
@@ -52,77 +60,117 @@ const tavilySearchTool = new TavilySearchResults({
         "Search and return statements from the parliament session, including which politicians said what and what they talked about.",
     },
   );
+
+  // Generate Answer Tool
+const generateTool = new DynamicTool({
+  name: "generate_answer",
+  description: "Generate an answer based on the given context and question. Input should be a JSON string with 'context' and 'question' keys.",
+  func: async (input: string) => {
+    console.log("---GENERATE---");
+    const { context, question } = JSON.parse(input);
+    const prompt = await pull<ChatPromptTemplate>("rlm/rag-prompt");
+    const ragChain = prompt.pipe(llm).pipe(new StringOutputParser());
+    return ragChain.invoke({ context, question });
+  },
+});
+
+// Grade Documents Tool
+const gradeDocumentsTool = new DynamicTool({
+  name: "grade_documents",
+  description: "Grade documents based on relevance to a question. Always use this tool to check if a document is relevant to a question before using it in a response.",
+  func: async (input: string) => {
+    console.log("---CHECK RELEVANCE---");
+    const { documents, question } = JSON.parse(input);
+    const llmWithTool = llm.withStructuredOutput(
+      z.object({
+        binaryScore: z.enum(["yes", "no"]).describe("Relevance score 'yes' or 'no'"),
+      }),
+      { name: "grade" }
+    );
+
+    const prompt = ChatPromptTemplate.fromTemplate(`You are a grader assessing relevance of a retrieved document to a user question.
+    Here is the retrieved document:
+    
+    {context}
+    
+    Here is the user question: {question}
   
-  const tools = [tavilySearchTool, ragTool];
+    If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant.
+    Give a binary score 'yes' or 'no' score to indicate whether the document is relevant to the question.`);
+
+    const chain = prompt.pipe(llmWithTool);
+    const filteredDocs: Array<DocumentInterface> = [];
+
+    for (const doc of documents) {
+      const grade = await chain.invoke({
+        context: doc.pageContent,
+        question: question,
+      });
+      if (grade.binaryScore === "yes") {
+        console.log("---GRADE: DOCUMENT RELEVANT---");
+        filteredDocs.push(doc);
+      } else {
+        console.log("---GRADE: DOCUMENT NOT RELEVANT---");
+      }
+    }
+
+    return JSON.stringify(filteredDocs);
+  },
+});
+
+// Transform Query Tool
+const transformQueryTool = new DynamicTool({
+  name: "transform_query",
+  description: "Transform a query to produce a better question for semantic search",
+  func: async (question: string) => {
+    console.log("---TRANSFORM QUERY---");
+    const prompt = ChatPromptTemplate.fromTemplate(
+      `You are generating a question that is well optimized for semantic search retrieval.
+    Look at the input and try to reason about the underlying sematic intent / meaning.
+    Here is the initial question:
+    \n ------- \n
+    {question} 
+    \n ------- \n
+    Formulate an improved question: `
+    );
+    const chain = prompt.pipe(llm).pipe(new StringOutputParser());
+    return chain.invoke({ question });
+  },
+});
+
+// Decide to Generate Tool
+const decideToGenerateTool = new DynamicTool({
+  name: "decide_to_generate",
+  description: "Decide whether to generate an answer or transform the query based on document availability. Input should be a JSON string with a 'documents' key containing an array of documents.",
+  func: async (input: string): Promise<"transformQuery" | "generate"> => {
+    console.log("---DECIDE TO GENERATE---");
+    const { documents } = JSON.parse(input);
+    if (documents.length === 0) {
+      console.log("---DECISION: TRANSFORM QUERY---");
+      return "transformQuery";
+    }
+    console.log("---DECISION: GENERATE---");
+    return "generate";
+  },
+});
+
+  const tools = [tavilySearchTool, ragTool, generateTool, gradeDocumentsTool, transformQueryTool, decideToGenerateTool];
   const toolNode = new ToolNode<typeof GraphState.State>(tools);
-  //#endregion
-  
-//#region LLM and Embeddings Setup
-const llm = new ChatOpenAI({
-    model: "gpt-4o-mini",
-    temperature: 0,
-    streaming: true
-  }).bindTools(tools);
-//#endregion
 
-//#region History-Aware Retriever Setup
-const contextualizeQPrompt = ChatPromptTemplate.fromMessages([
-  ["system", "Given a chat history and the latest user question which might reference context in the chat history, formulate a standalone question which can be understood without the chat history. Do NOT answer the question, just reformulate it if needed and otherwise return it as is."],
-  new MessagesPlaceholder("chat_history"),
-  ["human", "{input}"],
-]);
-
-const historyAwareRetriever = await createHistoryAwareRetriever({
-  llm,
-  retriever,
-  rephrasePrompt: contextualizeQPrompt,
-});
-//#endregion
-
-//#region Main Prompt and Chain Setup
-const prompt = ChatPromptTemplate.fromMessages([
-  ["system", `Вие сте високоинтелигентен асистент, специализиран в анализа на стенограми от заседания на българския парламент. Разполагате с обширни познания за политическата система, законодателния процес и текущите събития в България. Моля, прегледайте внимателно предоставения контекст и отговорете на следния въпрос:
-
-Контекст: {context}
-
-При формулирането на отговора си, моля:
-1. Анализирайте контекста и извлечете релевантната информация, свързана с въпроса.
-2. Ако въпросът е свързан с конкретно заседание, обърнете внимание на:
-   - Основни теми и обсъждани въпроси
-   - Ключови решения и гласувания
-   - Изказвания на политици и техните позиции
-   - Важни дебати или разногласия
-   - Дата на заседанието (ако е посочена)
-3. Ако въпросът е по-общ или се отнася за дейността на парламента като цяло, фокусирайте се върху:
-   - Тенденции в законодателната дейност
-   - Ключови законопроекти и тяхното развитие
-   - Динамика между политическите партии
-   - Важни политически събития или промени
-4. Предоставете обективен и балансиран анализ, базиран на фактите в контекста.
-5. Ако информацията в контекста е недостатъчна, посочете това и предложете възможни източници за допълнителна информация.
-
-Моля, структурирайте отговора си ясно и логично, използвайки подзаглавия, където е уместно. Стремете се да предоставите информативен и задълбочен отговор, който да помогне на потребителя да разбере по-добре парламентарната дейност и политическата ситуация в България.`],
-  new MessagesPlaceholder("chat_history"),
-  ["human", "{input}"],
-]);
-
-const questionAnswerChain = await createStuffDocumentsChain({
-  llm,
-  prompt,
-});
-
-const ragChain = await createRetrievalChain({
-  retriever: historyAwareRetriever,
-  combineDocsChain: questionAnswerChain,
-});
+  const llm_tools = llm.bindTools(tools);
 //#endregion
 
 //#region LangGraph Agent Setup
 const GraphState = Annotation.Root({
-    messages: Annotation<BaseMessage[]>({
-      reducer: (x, y) => x.concat(y),
-      default: () => [],
-    })
+    documents: Annotation<DocumentInterface[]>({
+        reducer: (x, y) => y ?? x ?? [],
+      }),
+      question: Annotation<string>({
+        reducer: (x, y) => y ?? x ?? "",
+      }),
+      generation: Annotation<string>({
+        reducer: (x, y) => y ?? x,
+      }),
   })
 
 function shouldContinue({ messages }: typeof MessagesAnnotation.State) {
@@ -138,7 +186,7 @@ function shouldContinue({ messages }: typeof MessagesAnnotation.State) {
 }
 
 async function callModel(state: typeof MessagesAnnotation.State) {
-  const response = await llm.invoke(state.messages);
+  const response = await llm_tools.invoke(state.messages);
   return { messages: [response] };
 }
 
@@ -153,7 +201,7 @@ const app = workflow.compile();
 //#endregion
 
 //#region Example Usage
-const question1 = "Направи анализ на репликите на депутата Цончо Ганев и ми разкажи за него като депутат.";
+const question1 = "Какви решения са били взети през миналия месец и на каква тема?";
 
 const finalState = await app.invoke({
   messages: [new HumanMessage(question1)],
