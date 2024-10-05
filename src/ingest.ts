@@ -82,4 +82,11 @@ const vectorStore = new WeaviateStore(
 );
 
 // Add documents with metadata
-await vectorStore.addDocuments(splitDocs);
+await vectorStore.addDocuments(splitDocs.map(doc => ({
+    ...doc,
+    metadata: {
+        ...doc.metadata,
+        source: doc.metadata.file
+    }
+})));
+

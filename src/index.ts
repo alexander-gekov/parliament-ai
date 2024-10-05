@@ -1,3 +1,4 @@
+import { END } from "@langchain/langgraph";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
@@ -8,39 +9,63 @@ import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retr
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
-import { HumanMessage } from "@langchain/core/messages";
-import { StateGraph, MessagesAnnotation } from "@langchain/langgraph";
+import { BaseMessage, HumanMessage } from "@langchain/core/messages";
+import { StateGraph, MessagesAnnotation, Annotation } from "@langchain/langgraph";
+import { createRetrieverTool } from "langchain/tools/retriever";
 
 dotenv.config();
 
-const llm = new ChatOpenAI({
-    model: "gpt-4o-mini",
-    temperature: 0
-  });
+const embeddings = new OpenAIEmbeddings();
 
+//#region Weaviate Setup
 const weaviateClient: WeaviateClient = weaviate.client({
     scheme: 'https',
     host: process.env.WEAVIATE_API_URL ?? "localhost",
     apiKey: new ApiKey(process.env.WEAVIATE_API_KEY ?? "default"),
   });
-
-const embeddings = new OpenAIEmbeddings();
-
-// Create vector store from split documents
-const vectorStore = new WeaviateStore(
+  
+  const vectorStore = new WeaviateStore(
     embeddings,
     {
-        client: weaviateClient,
-        indexName: "Sessions"
+      client: weaviateClient,
+      indexName: "Sessions"
     }
   );
-
-const retriever = vectorStore.asRetriever({
+  
+  const retriever = vectorStore.asRetriever({
     searchType: "similarity",
     k: 6
   });
+  //#endregion
 
-// Create a history-aware retriever
+//#region Tool Setup
+const tavilySearchTool = new TavilySearchResults({
+    apiKey: process.env.TAVILY_API_KEY,
+    maxResults: 3
+  });
+  
+  const ragTool = createRetrieverTool(
+    retriever,
+    {
+      name: "retrieve_parliament_session_statements",
+      description:
+        "Search and return statements from the parliament session, including which politicians said what and what they talked about.",
+    },
+  );
+  
+  const tools = [tavilySearchTool, ragTool];
+  const toolNode = new ToolNode<typeof GraphState.State>(tools);
+  //#endregion
+  
+//#region LLM and Embeddings Setup
+const llm = new ChatOpenAI({
+    model: "gpt-4o-mini",
+    temperature: 0,
+    streaming: true
+  }).bindTools(tools);
+//#endregion
+
+//#region History-Aware Retriever Setup
 const contextualizeQPrompt = ChatPromptTemplate.fromMessages([
   ["system", "Given a chat history and the latest user question which might reference context in the chat history, formulate a standalone question which can be understood without the chat history. Do NOT answer the question, just reformulate it if needed and otherwise return it as is."],
   new MessagesPlaceholder("chat_history"),
@@ -52,13 +77,13 @@ const historyAwareRetriever = await createHistoryAwareRetriever({
   retriever,
   rephrasePrompt: contextualizeQPrompt,
 });
+//#endregion
 
-// Update the main prompt to include chat history
+//#region Main Prompt and Chain Setup
 const prompt = ChatPromptTemplate.fromMessages([
   ["system", `Вие сте високоинтелигентен асистент, специализиран в анализа на стенограми от заседания на българския парламент. Разполагате с обширни познания за политическата система, законодателния процес и текущите събития в България. Моля, прегледайте внимателно предоставения контекст и отговорете на следния въпрос:
 
 Контекст: {context}
-
 
 При формулирането на отговора си, моля:
 1. Анализирайте контекста и извлечете релевантната информация, свързана с въпроса.
@@ -90,36 +115,33 @@ const ragChain = await createRetrievalChain({
   retriever: historyAwareRetriever,
   combineDocsChain: questionAnswerChain,
 });
+//#endregion
 
-const tavilySearch = new TavilySearchResults({
-  apiKey: process.env.TAVILY_API_KEY,
-  maxResults: 3
-});
+//#region LangGraph Agent Setup
+const GraphState = Annotation.Root({
+    messages: Annotation<BaseMessage[]>({
+      reducer: (x, y) => x.concat(y),
+      default: () => [],
+    })
+  })
 
-// Step 4: Set up ToolNode for LangGraph agent
-const tools = [new TavilySearchResults({ apiKey: process.env.TAVILY_API_KEY, maxResults: 3 })];
-const toolNode = new ToolNode(tools);
-
-// Step 5: Define a function to decide whether to continue (tool usage)
 function shouldContinue({ messages }: typeof MessagesAnnotation.State) {
   const lastMessage = messages[messages.length - 1];
+  console.log("DECIDING...")
 
-  // If the LLM makes a tool call, route to the "tools" node
   if (lastMessage.additional_kwargs.tool_calls) {
+    console.log("tool call", lastMessage.additional_kwargs.tool_calls);
     return "tools";
   }
 
-  // Otherwise, stop at the agent's response (end state)
   return "__end__";
 }
 
-// Step 6: Define function to call the model
 async function callModel(state: typeof MessagesAnnotation.State) {
   const response = await llm.invoke(state.messages);
   return { messages: [response] };
 }
 
-// Step 7: Create a LangGraph StateGraph for agent flow
 const workflow = new StateGraph(MessagesAnnotation)
   .addNode("agent", callModel)
   .addEdge("__start__", "agent")
@@ -128,19 +150,14 @@ const workflow = new StateGraph(MessagesAnnotation)
   .addConditionalEdges("agent", shouldContinue);
 
 const app = workflow.compile();
+//#endregion
 
-const question1 = "Какви решения са взети/дискутирани относно приемането на еврото?";
+//#region Example Usage
+const question1 = "Направи анализ на репликите на депутата Цончо Ганев и ми разкажи за него като депутат.";
 
 const finalState = await app.invoke({
   messages: [new HumanMessage(question1)],
 });
+
 console.log(finalState.messages[finalState.messages.length - 1].content);
-
-const nextState = await app.invoke({
-  messages: [...finalState.messages, new HumanMessage("Кои депутати са били най-против приемането на еврото?")],
-});
-
-const nextState2 = await app.invoke({
-  messages: [...nextState.messages, new HumanMessage("С какво е свързан първият ми въпрос?")],
-});
-console.log(nextState2.messages[nextState2.messages.length - 1].content);
+//#endregion
