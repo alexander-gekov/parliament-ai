@@ -1,0 +1,1557 @@
+{
+  "parlSession": {
+    "_id": "66da4dc41c49ee1b00774bc3",
+    "title": "ПЕТДЕСЕТО НАРОДНО СЪБРАНИЕ, ДВАДЕСЕТ И ОСМО ЗАСЕДАНИЕ, София, четвърътк, 5 септември 2024 г. Открито в 9,02 ч.",
+    "slug": "2024-09-05",
+    "date": "2024-09-05T00:00:00.000Z",
+    "govId": 10930,
+    "parliament": "667598b91d5deffa5341a810",
+    "hasVotes": true,
+    "hasSteno": true,
+    "votesProcessed": true,
+    "stenoProcessed": true,
+    "__v": 0
+  },
+  "statementCount": 98,
+  "sessionVotes": [
+    {
+      "voteType": "registration",
+      "result": "quorum",
+      "_id": "66da4dd28bc3a30ae8a214c5",
+      "name": "Регистрация",
+      "number": 1,
+      "timestamp": "2024-09-05T06:00:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a22012",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22013",
+              "count": 37
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22014",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22015",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22016",
+              "count": 7
+            },
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22017",
+              "count": 55
+            },
+            {
+              "decision": "r-present",
+              "_id": "66da4dd38bc3a30ae8a22018",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22019",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a2201a",
+              "count": 16
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2201b",
+              "count": 3
+            },
+            {
+              "decision": "r-present",
+              "_id": "66da4dd38bc3a30ae8a2201c",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2201d",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a2201e",
+              "count": 27
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2201f",
+              "count": 10
+            },
+            {
+              "decision": "r-present",
+              "_id": "66da4dd38bc3a30ae8a22020",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22021",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22022",
+              "count": 11
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22023",
+              "count": 5
+            },
+            {
+              "decision": "r-present",
+              "_id": "66da4dd38bc3a30ae8a22024",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22025",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22026",
+              "count": 22
+            },
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22027",
+              "count": 17
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22028",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22029",
+              "count": 15
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2202a",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "standard",
+      "result": "rejected",
+      "_id": "66da4dd28bc3a30ae8a214c6",
+      "name": "Решение за избиране на председател на Комисията за контрол над службите за сигурност, прилагането и използването на специалните разузнавателни средства и достъпа до данните по Закона за електронните съобщения за Втората сесия",
+      "number": 2,
+      "timestamp": "2024-09-05T07:07:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a22051",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22052",
+              "count": 2
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a22053",
+              "count": 36
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22054",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22055",
+              "count": 7
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a22056",
+              "count": 60
+            },
+            {
+              "decision": "abstain",
+              "_id": "66da4dd38bc3a30ae8a22057",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22058",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22059",
+              "count": 3
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a2205a",
+              "count": 19
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2205b",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "abstain",
+              "_id": "66da4dd38bc3a30ae8a2205c",
+              "count": 5
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a2205d",
+              "count": 31
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a2205e",
+              "count": 2
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2205f",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22060",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22061",
+              "count": 4
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22062",
+              "count": 14
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22063",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22064",
+              "count": 33
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22065",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22066",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a22067",
+              "count": 12
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22068",
+              "count": 2
+            },
+            {
+              "decision": "abstain",
+              "_id": "66da4dd38bc3a30ae8a22069",
+              "count": 1
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2206a",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "standard",
+      "result": "rejected",
+      "_id": "66da4dd28bc3a30ae8a214c7",
+      "name": "Решение за избиране на председател на Комисията за контрол над службите за сигурност, прилагането и използването на специалните разузнавателни средства и достъпа до данните по Закона за електронните съобщения за Втората сесия - прегласуване",
+      "number": 3,
+      "timestamp": "2024-09-05T07:08:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a2206b",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a2206c",
+              "count": 37
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a2206d",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2206e",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a2206f",
+              "count": 5
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a22070",
+              "count": 61
+            },
+            {
+              "decision": "abstain",
+              "_id": "66da4dd38bc3a30ae8a22071",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22072",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22073",
+              "count": 3
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a22074",
+              "count": 19
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22075",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "abstain",
+              "_id": "66da4dd38bc3a30ae8a22076",
+              "count": 4
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22077",
+              "count": 31
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a22078",
+              "count": 3
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22079",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2207a",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2207b",
+              "count": 3
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a2207c",
+              "count": 15
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2207d",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2207e",
+              "count": 32
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a2207f",
+              "count": 7
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22080",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a22081",
+              "count": 12
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22082",
+              "count": 2
+            },
+            {
+              "decision": "abstain",
+              "_id": "66da4dd38bc3a30ae8a22083",
+              "count": 1
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22084",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "standard",
+      "result": "approved",
+      "_id": "66da4dd28bc3a30ae8a214c8",
+      "name": "ЗИД на Закона за закрила на детето – второ гласуване - наименование, параграф 1 и параграф 2, Заключителни разпоредби",
+      "number": 4,
+      "timestamp": "2024-09-05T07:22:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a22085",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22086",
+              "count": 34
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22087",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22088",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22089",
+              "count": 24
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2208a",
+              "count": 44
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2208b",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a2208c",
+              "count": 10
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2208d",
+              "count": 12
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2208e",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2208f",
+              "count": 8
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22090",
+              "count": 31
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22091",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22092",
+              "count": 5
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22093",
+              "count": 13
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22094",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22095",
+              "count": 27
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22096",
+              "count": 12
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22097",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22098",
+              "count": 6
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22099",
+              "count": 10
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "standard",
+      "result": "approved",
+      "_id": "66da4dd28bc3a30ae8a214c9",
+      "name": "ЗИД на Закона за закрила на детето – второ гласуване - параграф 3 - предложение от Стою Стоев за редакция",
+      "number": 5,
+      "timestamp": "2024-09-05T07:23:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a2209a",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2209b",
+              "count": 36
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a2209c",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2209d",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a2209e",
+              "count": 23
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a2209f",
+              "count": 45
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220a0",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220a1",
+              "count": 9
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220a2",
+              "count": 13
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220a3",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220a4",
+              "count": 8
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220a5",
+              "count": 31
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220a6",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220a7",
+              "count": 5
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220a8",
+              "count": 13
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220a9",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220aa",
+              "count": 27
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220ab",
+              "count": 12
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220ac",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220ad",
+              "count": 6
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220ae",
+              "count": 10
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "standard",
+      "result": "approved",
+      "_id": "66da4dd28bc3a30ae8a214ca",
+      "name": "ЗИД на Закона за закрила на детето – второ гласуване - параграф 3 и 4",
+      "number": 6,
+      "timestamp": "2024-09-05T07:24:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a220af",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220b0",
+              "count": 36
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220b1",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220b2",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220b3",
+              "count": 25
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220b4",
+              "count": 43
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220b5",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220b6",
+              "count": 10
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220b7",
+              "count": 12
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220b8",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220b9",
+              "count": 8
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220ba",
+              "count": 31
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220bb",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220bc",
+              "count": 5
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220bd",
+              "count": 13
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220be",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220bf",
+              "count": 26
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220c0",
+              "count": 13
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220c1",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220c2",
+              "count": 6
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220c3",
+              "count": 10
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "standard",
+      "result": "approved",
+      "_id": "66da4dd28bc3a30ae8a214cb",
+      "name": "ЗИД на Закона за гражданската регистрация – първо гласуване",
+      "number": 7,
+      "timestamp": "2024-09-05T08:44:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a220c4",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220c5",
+              "count": 33
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220c6",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220c7",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220c8",
+              "count": 27
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220c9",
+              "count": 41
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220ca",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a220cb",
+              "count": 14
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220cc",
+              "count": 8
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220cd",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220ce",
+              "count": 7
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220cf",
+              "count": 31
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a220d0",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220d1",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220d2",
+              "count": 17
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220d3",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220d4",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220d5",
+              "count": 22
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220d6",
+              "count": 17
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220d7",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220d8",
+              "count": 13
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220d9",
+              "count": 3
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "standard",
+      "result": "approved",
+      "_id": "66da4dd28bc3a30ae8a214cc",
+      "name": "ЗИД на Закона за гражданската регистрация – първо гласуване - прегласуване",
+      "number": 8,
+      "timestamp": "2024-09-05T08:46:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a220da",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220db",
+              "count": 36
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220dc",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220dd",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220de",
+              "count": 20
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220df",
+              "count": 48
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220e0",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a220e1",
+              "count": 14
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220e2",
+              "count": 8
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220e3",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220e4",
+              "count": 7
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220e5",
+              "count": 31
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a220e6",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220e7",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220e8",
+              "count": 17
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220e9",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220ea",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220eb",
+              "count": 17
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220ec",
+              "count": 21
+            },
+            {
+              "decision": "abstain",
+              "_id": "66da4dd38bc3a30ae8a220ed",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220ee",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220ef",
+              "count": 7
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220f0",
+              "count": 9
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "standard",
+      "result": "approved",
+      "_id": "66da4dd28bc3a30ae8a214cd",
+      "name": "ЗИД на Закона за опазване на околната среда - първо гласуване - предложение от Васил Стефанов за отлагане на разискванията",
+      "number": 9,
+      "timestamp": "2024-09-05T09:07:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a220f1",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220f2",
+              "count": 35
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220f3",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220f4",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220f5",
+              "count": 29
+            },
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a220f6",
+              "count": 39
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220f7",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a220f8",
+              "count": 14
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220f9",
+              "count": 7
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220fa",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220fb",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a220fc",
+              "count": 32
+            },
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a220fd",
+              "count": 6
+            },
+            {
+              "decision": "abstain",
+              "_id": "66da4dd38bc3a30ae8a220fe",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a220ff",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22100",
+              "count": 18
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22101",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "yes",
+              "_id": "66da4dd38bc3a30ae8a22102",
+              "count": 31
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22103",
+              "count": 8
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22104",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "no",
+              "_id": "66da4dd38bc3a30ae8a22105",
+              "count": 11
+            },
+            {
+              "decision": "no-vote",
+              "_id": "66da4dd38bc3a30ae8a22106",
+              "count": 5
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "registration",
+      "result": "no-quorum",
+      "_id": "66da4dd28bc3a30ae8a214ce",
+      "name": "Регистрация",
+      "number": 10,
+      "timestamp": "2024-09-05T09:08:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a2202b",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2202c",
+              "count": 37
+            },
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a2202d",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2202e",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2202f",
+              "count": 14
+            },
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22030",
+              "count": 54
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22031",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22032",
+              "count": 18
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22033",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22034",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22035",
+              "count": 35
+            },
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22036",
+              "count": 4
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22037",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22038",
+              "count": 18
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22039",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2203a",
+              "count": 38
+            },
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a2203b",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2203c",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a2203d",
+              "count": 14
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2203e",
+              "count": 2
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    },
+    {
+      "voteType": "registration",
+      "result": "no-quorum",
+      "_id": "66da4dd28bc3a30ae8a214cf",
+      "name": "Регистрация",
+      "number": 11,
+      "timestamp": "2024-09-05T10:12:00.000Z",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "summary": [
+        {
+          "_id": "66da4dd38bc3a30ae8a2203f",
+          "parlGroup": "66759ac41d5deffa5341a819",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22040",
+              "count": 38
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22041",
+          "parlGroup": "66759a6a1d5deffa5341a816",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22042",
+              "count": 9
+            },
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22043",
+              "count": 59
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22044",
+          "parlGroup": "66759a861d5deffa5341a817",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a22045",
+              "count": 16
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22046",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22047",
+          "parlGroup": "66759ba01d5deffa5341a81d",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22048",
+              "count": 39
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a22049",
+          "parlGroup": "66759ae21d5deffa5341a81a",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2204a",
+              "count": 10
+            },
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a2204b",
+              "count": 8
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2204c",
+          "parlGroup": "66759aa41d5deffa5341a818",
+          "votes": [
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a2204d",
+              "count": 39
+            }
+          ]
+        },
+        {
+          "_id": "66da4dd38bc3a30ae8a2204e",
+          "parlGroup": "66759afe1d5deffa5341a81b",
+          "votes": [
+            {
+              "decision": "present",
+              "_id": "66da4dd38bc3a30ae8a2204f",
+              "count": 14
+            },
+            {
+              "decision": "not-present",
+              "_id": "66da4dd38bc3a30ae8a22050",
+              "count": 2
+            }
+          ]
+        }
+      ],
+      "__v": 0
+    }
+  ],
+  "sessionStatements": [
+    {
+      "position": "house-speaker",
+      "paragraphs": [
+        "Добро утро, колеги!",
+        "Моля за регистрация.",
+        "Регистрирани 178 народни представители. Има кворум. Откривам заседанието. (Звъни.)",
+        "Едно съобщение, колеги, да Ви направя.",
+        "Служебният министър на отбраната в изпълнение на Закона за преминаването през и пребиваването на територията на Република България на съюзнически и на чужди въоръжени сили и Закона за отбраната и въоръжените сили на Република България е уведомил Народното събрание за издадени от него заповеди, с които е разрешил:",
+        "1. Преминаването през въздушното пространство и пребиваването на територията на Република България на съюзнически и чужди въоръжени сили и средства.",
+        "2. Изпращането и използването извън територията на Република България на военнослужещи и средства от въоръжените сили за участие в учения и по други причини и съвместна подготовка със съюзнически въоръжени сили на територията на страната.",
+        "Уведомленията са с входящи номера от № 50-403-09-21 до № 50-403-09-31.",
+        "За декларация – заповядайте."
+      ],
+      "_id": "66e34aac4e2ef76cfc31a8f2",
+      "person": "634fe846525dc93268252768",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "title": "Председател Рая Назарян",
+      "titleExtra": "",
+      "slug": "0",
+      "__v": 0
+    },
+    {
+      "position": "parl-member",
+      "paragraphs": [
+        "Уважаема госпожо Председател, госпожи и господа народни представители! Тази и следващата седмица българската държава избира чрез конкурси директори на 379 училища.",
+        "За 84 училища нямаше нито един кандидат, на което ще се спра отделно. През януари и февруари бяха избрани директори на други 200 български училища. Една четвърт, 25% от образователните ни институции вече ще имат нови ръководители преди началото на предстоящата учебна година. Това, разбира се, са естествени и нормални процеси. Ръководствата на училищата трябва да бъдат обновявани, и то с ясни, законни и логични процедури.",
+        "Между 2009-а и 2021 г. овладяването на българските училища се извършваше от ГЕРБ с подкрепата и участието на Движението за права и свободи. Без изрични и специални наредби, методично и неотклонно за",
+        "12 години ГЕРБ превърна огромна част от българските училища в придатъци на партийната си структура – осъдително поведение, което породи остра реакция от страна на българското общество, използвана от страна на ПП, когато имаше правителство и управляваше Министерството на образованието и науката, и материализирана чрез допълнение на Закона за предучилищното и училищното образование за забрана на политическата и партийната дейност и една нова наредба за провеждане на директорските конкурси, която добави към традиционния начин на подбор тест и събеседване, концепция и казуси.",
+        "За разработването на тези тестове и казуси Министерството на образованието и науката е заплатило на външни изпълнители 148 хил. лв., но това е отделен въпрос, на който ще се спра допълнително. По-важното е с кого са свързани дружествата, с които са сключени договорите за изработване на изпитните тестове и казусите за директори, защото това, което от ВЪЗРАЖДАНЕ знаем, е, че тези договори за изработване на тестове и казуси са свързани с лица от Фондация „Заедно в час“. Тези лица, които „Заедно в час“ скри, след като от ВЪЗРАЖДАНЕ посочихме, че извършват пропаганда срещу поправките в училищния закон, забраняващ пропагандата на нетрадиционната сексуална ориентация. Защото ние от ВЪЗРАЖДАНЕ знаем и още нещо – че хора от Фондация „Заедно в час“ чрез свързани лица са извършвали платени обучения на кандидати за български директори, че хора от Фондация „Заедно в час“ са извършвали платени обучения и на държавните служители от МОН и регионалните управления на образованието, които са ангажирани в процедурите за избор на български училищни директори.",
+        "Не става въпрос, че това е просто бизнес. Търговските отношения тук са прах в очите, както бе прах в очите отговорът на Министерството на образованието и науката на въпрос на народни представители от ПП-ДБ дали ще се извършват платени обучения от външни организации на кандидатите за директори. „Спокойно – отговориха от Министерството на образованието и науката, – всичко е под контрол. Сигурността е гарантирана.“ Но чий е контролът и управлението на Министерството на образованието и науката, след като поне една трета от политическия кабинет на МОН е от лица, свързани с Фондация „Заедно в час“ и с нейния основен донор – Фондация „Америка за България“? (Смях и възгласи: „Ууу!“)",
+        "С „Америка за България“, която в продължение на 10 години стъпка по стъпка овладява българската образователна система на всички нива – училища, университети, Министерство на образованието и науката, а също и съдилища, прокуратури, овладява сърцето на българската държава.",
+        "Ние от ВЪЗРАЖДАНЕ призоваваме българите, които се конкурират в момента за училищни директори: не влизайте в схеми и програми на тази чуждестранна организация! Останете българи и поставяйте българския национален интерес, формирайте национално самочувствие, патриотичен дух и родолюбие у децата и учениците, така както чл. 11 от училищния закон Ви задължава. Не влизайте в схемите на Фондация „Америка за България“! Българите не искаме нови 600 американски бази в българските училища, които да пропагандират чужди, небългарски ценности, които да не позволяват на Българската православна църква да преподава вероучение и православно християнство, които да не допускат качествено обучение по математика за всяко българско дете.",
+        "От ВЪЗРАЖДАНЕ предлагаме и решение. Фондация „Америка за България“ има активи в размер на 459 млн. 280 хил. долара в края на 2023 г. Тя е американска фондация. Започнала е дейността си с 55 млн. долара от Държавния департамент на Съединените американски щати през 1991 г. Класически пример за чуждестранен агент, който увеличава капитала си повече от осем пъти, или 834% за 32 години – с 26% средно за една година. Това е три-четири пъти над нормалната доходност на всяка една инвестиция, но когато притежаваш българската държава, няма невъзможни печалби.",
+        "От ВЪЗРАЖДАНЕ призоваваме чуждестранния агент Фондация „Америка за България“ да дари на България незабавно, без условия и увъртане, всички активи, които притежава, в размер на 459 млн. долара, които грабителски е придобила в България за 32 години, след което да преустанови дейността си в България.",
+        "В заключение, обръщам внимание на ГЕРБ, че „Америка за България“ през 2022 г. намалява активите си от 531 на 409 млн. долара, или 122 млн. долара са били инвестирани – знаете в какво, през 2021 г. Благодаря. (Ръкопляскания от ВЪЗРАЖДАНЕ и възгласи „Браво!“)"
+      ],
+      "_id": "66e34aac4e2ef76cfc31a8f4",
+      "person": "66759e33e8734836708c248d",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "title": "Ангел Янчев",
+      "titleExtra": "",
+      "slug": "1",
+      "__v": 0
+    },
+    {
+      "position": "house-speaker",
+      "paragraphs": [
+        "Благодаря Ви.",
+        "Други декларации? Не виждам.",
+        "",
+        "Преминаваме към точка шеста от седмичната програма:",
+        "ПРОЕКТ НА РЕШЕНИЕ ЗА ИЗБИРАНЕ НА ПРЕДСЕДАТЕЛ НА КОМИСИЯТА ЗА КОНТРОЛ НАД СЛУЖБИТЕ ЗА СИГУРНОСТ, ПРИЛАГАНЕТО И ИЗПОЛЗВАНЕТО НА СПЕЦИАЛНИТЕ РАЗУЗНАВАТЕЛНИ СРЕДСТВА И ДОСТЪПА ДО ДАННИТЕ ПО ЗАКОНА ЗА ЕЛЕКТРОННИТЕ СЪОБЩЕНИЯ ЗА ВТОРАТА СЕСИЯ.",
+        "Вносители са господин Николай Денков и госпожа Надежда Йорданова на 3 септември 2024 г.",
+        "Моля, вносителите, заповядайте само да представите Проекта на решение."
+      ],
+      "_id": "66e34aac4e2ef76cfc31a8f6",
+      "person": "634fe846525dc93268252768",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "title": "Председател Рая Назарян",
+      "titleExtra": "",
+      "slug": "2",
+      "__v": 0
+    },
+    {
+      "position": "parl-member",
+      "paragraphs": [
+        "Благодаря, госпожо Председател.",
+        "Колеги, представям Ви",
+        "„Проект!",
+        "РЕШЕНИЕ",
+        "за избиране на председател на Комисията за контрол над службите за сигурност, прилагането и използването на специалните разузнавателни средства и достъпа до данните по Закона за електронните съобщения за Втората сесия",
+        "Народното събрание на основание чл. 79, ал. 1 от Конституцията на Република Българя, чл. 18, ал. 3 и чл. 21, ал. 6 от Правилника за организацията и дейността на Народното събрание и във връзка с Решение за избиране на Комисия за контрол над службите за сигурност, прилагането и използването на специалните разузнавателни средства и достъпа до данните по Закона за електронните съобщения",
+        "РЕШИ:",
+        "Избира Бойко Илиев Рашков за председател на Комисията за контрол над службите за сигурност, прилагането и използването на специалните разузнавателни средства и достъпа до данните по Закона за електронните съобщения през Втората сесия.“",
+        "Колеги, във връзка с така изчетения предложен проект на решение, припомням, че тази постоянна комисия е специфична. При нея председателите са на ротационен принцип и дотолкова, доколкото парламентарната група „Продължаваме Промяната – Демократична България“ е втората по големина парламентарна група в Петдесетото народно събрание, това е основанието за приемането на предложения проект на решение в началото на тази сесия. Благодаря."
+      ],
+      "_id": "66e34aac4e2ef76cfc31a8f8",
+      "person": "60d4cc59c4ced20a9c9e02d4",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "title": "Надежда Йорданова",
+      "titleExtra": "",
+      "slug": "3",
+      "__v": 0
+    },
+    {
+      "position": "house-speaker",
+      "paragraphs": [
+        "Благодаря Ви, госпожо Йорданова.",
+        "Колеги, откривам разискванията по така изчетения проект за решение.",
+        "Има ли желаещи за изказвания?",
+        "Господин Георгиев."
+      ],
+      "_id": "66e34aac4e2ef76cfc31a8fa",
+      "person": "634fe846525dc93268252768",
+      "parlSession": "66da4dc41c49ee1b00774bc3",
+      "title": "Председател Рая Назарян",
+      "titleExtra": "",
+      "slug": "4",
+      "__v": 0
+    }
+  ],
+  "personCount": 240,
+  "parlSlug": "50",
+  "batchSize": 5
+}
