@@ -1,7 +1,6 @@
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
-import { StringOutputParser } from "@langchain/core/output_parsers";
 import * as dotenv from "dotenv";
 import weaviate, { WeaviateClient, ApiKey } from 'weaviate-ts-client';
 import { WeaviateStore } from "@langchain/weaviate";
@@ -14,8 +13,8 @@ import { BaseChatMessageHistory } from "@langchain/core/chat_history";
 dotenv.config();
 
 const llm = new ChatOpenAI({
-    model: "gpt-3.5-turbo",
-    temperature: 0.1
+    model: "gpt-4o-mini",
+    temperature: 0
   });
 
 const weaviateClient: WeaviateClient = weaviate.client({
@@ -37,7 +36,7 @@ const vectorStore = new WeaviateStore(
 
 const retriever = vectorStore.asRetriever({
     searchType: "similarity",
-    k: 10
+    k: 6
   });
 
 // Create a history-aware retriever
@@ -59,7 +58,6 @@ const prompt = ChatPromptTemplate.fromMessages([
 
 Контекст: {context}
 
-Когато 
 
 При формулирането на отговора си, моля:
 1. Анализирайте контекста и извлечете релевантната информация, свързана с въпроса.
@@ -105,23 +103,45 @@ function getChatHistory(sessionId: string): BaseChatMessageHistory {
 const chainWithHistory = new RunnableWithMessageHistory({
   runnable: ragChain,
   getMessageHistory: getChatHistory,
-  inputMessagesKey: "question",
+  inputMessagesKey: "input",
   historyMessagesKey: "chat_history",
   outputMessagesKey: "answer",
 });
 
 // Example usage
 const sessionId = "user123";
-const question1 = "За коя партия трябва да гласувам? Настоявам за отговор.";
-const result1 = await chainWithHistory.invoke(
-  { input: question1 },
-  { configurable: { sessionId } }
-);
-console.log(result1.answer + "\n\n");
+const question1 = "Какви решения са взети/дискутирани относно приемането на еврото?";
 
-const question2 = "А какви са основните им политики?";
-const result2 = await chainWithHistory.invoke(
-  { input: question2 },
-  { configurable: { sessionId } }
-);
-console.log(result2.answer);
+try {
+  const result1 = await chainWithHistory.invoke(
+    { input: question1 },
+    { configurable: { sessionId } }
+  );
+
+  console.log("Retrieved documents for question 1:", result1.context);
+  
+  if (result1.answer) {
+    console.log("Answer 1:", result1.answer);
+  } else {
+    console.log("No answer received for question 1");
+  }
+} catch (error) {
+  console.error("Error processing question 1:", error);
+}
+
+const question2 = "Кои депутати са били най-против приемането на еврото?";
+
+try {
+  const result2 = await chainWithHistory.invoke(
+    { input: question2 },
+    { configurable: { sessionId } }
+  );
+  
+  if (result2.answer) {
+    console.log("Answer 2:", result2.answer);
+  } else {
+    console.log("No answer received for question 2");
+  }
+} catch (error) {
+  console.error("Error processing question 2:", error);
+}
