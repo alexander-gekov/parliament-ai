@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**ParliamentAI** is a collaborative project created during the AI Hackathon by Alexander Gekov and Viktor Naydenov. Our project focuses on [briefly describe the goal or objective of your project]. We aim to develop an innovative AI solution that addresses [specific problem or challenge you are tackling].
+**ParliamentAI** is a collaborative project created during the AI Hackathon by Alexander Gekov and Viktor Naydenov. Our project focuses on keeping the users informed about Bulgarian Parliament hearings, meetings and discussions. We aim to develop an innovative AI solution that addresses the subjective information propaganda.
 
 ## Team
 
@@ -11,9 +11,9 @@
 
 ## Features
 
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
+- Q&A Conversational RAG
+- Engage (Chat)
+- Summary based on filters
 
 ## How to Run
 
