@@ -226,23 +226,27 @@ const workflow = new StateGraph(MessagesAnnotation)
 const app = workflow.compile();
 //#endregion
 
-//#region Example Usage
-const question1 = "Цончо Ганев баща ли е на Костадин Костадинов?";
+// Add this function at the end of the file
+export async function processUserMessage(name: string, sessionId: string, humanMessage: string) {
+  const question = humanMessage;
 
-// const finalState = await app.invoke({
-//   messages: [new HumanMessage(question1)],
-// });
+  const eventStream = await app.streamEvents({
+    messages: [new HumanMessage(question)],
+  }, { version: "v2"});
 
-const eventStream = await app.streamEvents({
-  messages: [new HumanMessage(question1)],
-}, { version: "v2"});
-
-process.stdout.write('\n'); // Start on a new line
-for await (const { event, tags, data } of eventStream) {
-  if (event === "on_chat_model_stream" && tags.includes("final")) {
-    if (data.chunk.content) {
-      process.stdout.write(data.chunk.content);
+  let response = '';
+  for await (const { event, tags, data } of eventStream) {
+    if (event === "on_chat_model_stream" && tags?.includes("final")) {
+      if (data.chunk.content) {
+        response += data.chunk.content;
+      }
     }
   }
+
+  return {
+    name,
+    sessionId,
+    question,
+    response
+  };
 }
-process.stdout.write('\n'); // End with a new line
