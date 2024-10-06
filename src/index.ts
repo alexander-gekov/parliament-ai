@@ -4,7 +4,7 @@ import weaviate, { WeaviateClient, ApiKey } from 'weaviate-ts-client';
 import { WeaviateStore } from "@langchain/weaviate";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
-import { BaseMessage, HumanMessage } from "@langchain/core/messages";
+import { BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { pull } from "langchain/hub";
 import { StateGraph, MessagesAnnotation, Annotation } from "@langchain/langgraph";
 import { createRetrieverTool } from "langchain/tools/retriever";
@@ -21,6 +21,14 @@ const llm = new ChatOpenAI({
     model: "gpt-4o-mini",
     temperature: 0,
     streaming: true
+  })
+
+  const finalLlm = new ChatOpenAI({
+    model: "gpt-4o-mini",
+    temperature: 0,
+    streaming: true
+  }).withConfig({
+    tags: ["final"]
   })
   
 const embeddings = new OpenAIEmbeddings();
@@ -182,11 +190,24 @@ function shouldContinue({ messages }: typeof MessagesAnnotation.State) {
     return "tools";
   }
 
-  return "__end__";
+  return "final";
 }
 
 async function callModel(state: typeof MessagesAnnotation.State) {
   const response = await llm_tools.invoke(state.messages);
+  return { messages: [response] };
+}
+
+const callFinalModel = async (state: typeof MessagesAnnotation.State) => {
+  const messages = state.messages;
+  const lastAIMessage = messages[messages.length - 1];
+  const response = await finalLlm.invoke([
+    new SystemMessage("Format the docs to human readable format and display sources as citations inline"),
+    new HumanMessage({ content: lastAIMessage.content })
+  ]);
+  // MessagesAnnotation allows you to overwrite messages from the agent
+  // by returning a message with the same id
+  response.id = lastAIMessage.id;
   return { messages: [response] };
 }
 
@@ -195,17 +216,33 @@ const workflow = new StateGraph(MessagesAnnotation)
   .addEdge("__start__", "agent")
   .addNode("tools", toolNode)
   .addEdge("tools", "agent")
-  .addConditionalEdges("agent", shouldContinue);
+  .addNode("final", callFinalModel)
+  .addConditionalEdges("agent", shouldContinue, {
+    tools: "tools",
+    final: "final"
+  })
+  .addEdge("final", "__end__");
 
 const app = workflow.compile();
 //#endregion
 
 //#region Example Usage
-const question1 = "Какви решения са били взети през миналия месец и на каква тема?";
+const question1 = "Цончо Ганев баща ли е на Костадин Костадинов?";
 
-const finalState = await app.invoke({
+// const finalState = await app.invoke({
+//   messages: [new HumanMessage(question1)],
+// });
+
+const eventStream = await app.streamEvents({
   messages: [new HumanMessage(question1)],
-});
+}, { version: "v2"});
 
-console.log(finalState.messages[finalState.messages.length - 1].content);
-//#endregion
+process.stdout.write('\n'); // Start on a new line
+for await (const { event, tags, data } of eventStream) {
+  if (event === "on_chat_model_stream" && tags.includes("final")) {
+    if (data.chunk.content) {
+      process.stdout.write(data.chunk.content);
+    }
+  }
+}
+process.stdout.write('\n'); // End with a new line
