@@ -44,13 +44,20 @@ const weaviateClient: WeaviateClient = weaviate.client({
     embeddings,
     {
       client: weaviateClient,
-      indexName: "Sessions"
+      indexName: "Sessions",
+      textKey: "text",
+      metadataKeys: ["speaker", "file"]
     }
   );
   
   const retriever = vectorStore.asRetriever({
     searchType: "similarity",
-    k: 6
+    k: 6,
+    metadata: {
+      speaker: "string",
+      file: "string"
+    },
+    verbose: true
   });
   //#endregion
 
@@ -60,14 +67,14 @@ const tavilySearchTool = new TavilySearchResults({
     maxResults: 3
   });
   
-  const ragTool = createRetrieverTool(
-    retriever,
-    {
-      name: "retrieve_parliament_session_statements",
-      description:
-        "Search and return statements from the parliament session, including which politicians said what and what they talked about.",
-    },
-  );
+const ragTool = createRetrieverTool(
+  retriever,
+  {
+    name: "retrieve_parliament_session_statements",
+    description:
+      "Search and return statements from the parliament session, including which politicians said what and what they talked about.",
+  },
+);
 
   // Generate Answer Tool
 const generateTool = new DynamicTool({
@@ -85,13 +92,14 @@ const generateTool = new DynamicTool({
 // Grade Documents Tool
 const gradeDocumentsTool = new DynamicTool({
   name: "grade_documents",
-  description: "Grade documents based on relevance to a question. Always use this tool to check if a document is relevant to a question before using it in a response.",
+  description: "Grade documents based on relevance to a question and speaker if mentioned. Always use this tool to check if a document is relevant to a question before using it in a response.",
   func: async (input: string) => {
     console.log("---CHECK RELEVANCE---");
     const { documents, question } = JSON.parse(input);
     const llmWithTool = llm.withStructuredOutput(
       z.object({
         binaryScore: z.enum(["yes", "no"]).describe("Relevance score 'yes' or 'no'"),
+        reason: z.string().describe("Reason for the score"),
       }),
       { name: "grade" }
     );
@@ -99,12 +107,15 @@ const gradeDocumentsTool = new DynamicTool({
     const prompt = ChatPromptTemplate.fromTemplate(`You are a grader assessing relevance of a retrieved document to a user question.
     Here is the retrieved document:
     
-    {context}
+    Content: {context}
+    Speaker: {speaker}
     
     Here is the user question: {question}
   
     If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant.
-    Give a binary score 'yes' or 'no' score to indicate whether the document is relevant to the question.`);
+    If the question mentions a specific speaker, check if the document's speaker matches.
+    Give a binary score 'yes' or 'no' to indicate whether the document is relevant to the question.
+    Also provide a brief reason for your decision.`);
 
     const chain = prompt.pipe(llmWithTool);
     const filteredDocs: Array<DocumentInterface> = [];
@@ -112,13 +123,14 @@ const gradeDocumentsTool = new DynamicTool({
     for (const doc of documents) {
       const grade = await chain.invoke({
         context: doc.pageContent,
+        speaker: doc.metadata.speaker,
         question: question,
       });
       if (grade.binaryScore === "yes") {
-        console.log("---GRADE: DOCUMENT RELEVANT---");
+        console.log(`---GRADE: DOCUMENT RELEVANT - ${grade.reason}---`);
         filteredDocs.push(doc);
       } else {
-        console.log("---GRADE: DOCUMENT NOT RELEVANT---");
+        console.log(`---GRADE: DOCUMENT NOT RELEVANT - ${grade.reason}---`);
       }
     }
 
@@ -202,7 +214,7 @@ const callFinalModel = async (state: typeof MessagesAnnotation.State) => {
   const messages = state.messages;
   const lastAIMessage = messages[messages.length - 1];
   const response = await finalLlm.invoke([
-    new SystemMessage("Format the docs to human readable format and display sources as citations inline"),
+    new SystemMessage("Format the docs to human readable format and display reference to the metadata as citations inline"),
     new HumanMessage({ content: lastAIMessage.content })
   ]);
   // MessagesAnnotation allows you to overwrite messages from the agent
@@ -227,13 +239,9 @@ const app = workflow.compile();
 //#endregion
 
 //#region Example Usage
-const question1 = "Цончо Ганев баща ли е на Костадин Костадинов?";
+const question1 = "Последните цитати на Цончо Ганев са?";
 
-// const finalState = await app.invoke({
-//   messages: [new HumanMessage(question1)],
-// });
-
-const eventStream = await app.streamEvents({
+const eventStream = app.streamEvents({
   messages: [new HumanMessage(question1)],
 }, { version: "v2"});
 

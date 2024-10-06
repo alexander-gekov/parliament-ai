@@ -46,10 +46,10 @@ for (const file of textFiles) {
                 const speaker = currentSpeaker;
                 const text = statement.trim();
                 
-                return new Document({
+                return new Document<Record<string,any>>({
                     pageContent: text,
                     metadata: {
-                        speaker: speaker,
+                        speaker: speaker,                       
                         file: file
                     }
                 });
@@ -77,16 +77,11 @@ const vectorStore = new WeaviateStore(
     embeddings,
     {
         client: weaviateClient,
-        indexName: "Sessions"
+        indexName: "Sessions",
+        textKey: "text",
+        metadataKeys: ["speaker", "file"]
     }
 );
 
-// Add documents with metadata
-await vectorStore.addDocuments(splitDocs.map(doc => ({
-    ...doc,
-    metadata: {
-        ...doc.metadata,
-        source: doc.metadata.file
-    }
-})));
-
+// // Add documents with metadata
+await vectorStore.addDocuments(splitDocs);
