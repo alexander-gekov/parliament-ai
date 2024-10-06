@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['shadcn-nuxt', '@nuxtjs/tailwindcss'],
+  modules: [
+    'shadcn-nuxt',
+    '@nuxtjs/tailwindcss',
+    'nuxt-lucide-icons',
+    '@pinia/nuxt',
+  ],
   compatibilityDate: '2024-04-03',
   shadcn: {
     /**

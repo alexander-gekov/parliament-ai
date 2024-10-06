@@ -1,0 +1,8 @@
+POST http://localhost:4000/api/chat
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "sessionId": 30,
+  "humanMessage": "Кой е цончо ганев?"
+}
