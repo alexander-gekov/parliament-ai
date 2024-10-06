@@ -238,19 +238,20 @@ const workflow = new StateGraph(MessagesAnnotation)
 const app = workflow.compile();
 //#endregion
 
-// Add this function at the end of the file
-export async function processUserMessage(name: string, sessionId: string, humanMessage: string) {
+export async function* processUserMessage(name: string, sessionId: string, humanMessage: string) {
   const question = humanMessage;
 
   const eventStream = await app.streamEvents({
     messages: [new HumanMessage(question)],
-  }, { version: "v2"});
+  }, { version: "v2" });
 
   let response = '';
+  
   for await (const { event, tags, data } of eventStream) {
     if (event === "on_chat_model_stream" && tags?.includes("final")) {
       if (data.chunk.content) {
         response += data.chunk.content;
+        yield data.chunk.content; // Yield each chunk of content as it's available
       }
     }
   }
